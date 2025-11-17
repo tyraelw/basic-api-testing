@@ -1,0 +1,539 @@
+{
+	"info": {
+		"_postman_id": "3dac7d6f-7b25-431d-8b7e-08f6714fa308",
+		"name": "Basic API Testing Practice",
+		"description": "Foundational API testing collection demonstrating GET and POST requests with basic validation patterns using JSONPlaceholder API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47331919"
+	},
+	"item": [
+		{
+			"name": "GET - All Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response is array format",
+							"pm.test(\"Response is an array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"// Confirm array contains data",
+							"pm.test(\"Array has posts\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				},
+				"description": "Retrieves all posts from the API and validates response structure."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Single Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify post has title property",
+							"pm.test(\"Post has title\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.title).to.exist;",
+							"});",
+							"",
+							"// Verify post has body content",
+							"pm.test(\"Post has body\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.body).to.exist;",
+							"});",
+							"",
+							"// Verify post has associated userId",
+							"pm.test(\"Post has userId\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.userId).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				},
+				"description": "Retrieves a specific post by ID and validates all required fields are present."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Posts by User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response format",
+							"pm.test(\"Response is an array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"// Verify filtering works correctly - all posts belong to user 1",
+							"pm.test(\"All posts belong to user 1\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach(function(post) {",
+							"        pm.expect(post.userId).to.equal(1);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1",
+							"description": "Filter posts by user ID"
+						}
+					]
+				},
+				"description": "Demonstrates query parameter usage to filter posts by specific user."
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Create Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate resource creation response",
+							"pm.test(\"Status code is 201\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// Verify new resource has assigned ID",
+							"pm.test(\"Response has id\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.exist;",
+							"});",
+							"",
+							"// Validate sent data matches response",
+							"pm.test(\"Title matches sent data\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.title).to.equal(\"My Test Post\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"My Test Post\",\n  \"body\": \"This is a test post created via Postman\",\n  \"userId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				},
+				"description": "Creates a new post resource and validates the creation response."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response structure",
+							"pm.test(\"Response is an array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"// Confirm data is present",
+							"pm.test(\"Users array is not empty\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				},
+				"description": "Retrieves all users and validates response contains data."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Single User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify user has name",
+							"pm.test(\"User has name\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.exist;",
+							"});",
+							"",
+							"// Verify user has email",
+							"pm.test(\"User has email\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.exist;",
+							"});",
+							"",
+							"// Validate email format contains @",
+							"pm.test(\"Email is valid format\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.include(\"@\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				},
+				"description": "Retrieves specific user details and validates email format."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - All Comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response structure",
+							"pm.test(\"Response is an array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"// Validate comment object structure by checking first element",
+							"pm.test(\"Comments have required fields\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var firstComment = jsonData[0];",
+							"    pm.expect(firstComment.postId).to.exist;",
+							"    pm.expect(firstComment.name).to.exist;",
+							"    pm.expect(firstComment.email).to.exist;",
+							"    pm.expect(firstComment.body).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/comments",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"comments"
+					]
+				},
+				"description": "Retrieves all comments and validates data structure."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Comments by Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response format",
+							"pm.test(\"Response is an array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"// Verify query parameter filtering works correctly",
+							"pm.test(\"All comments belong to post 1\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach(function(comment) {",
+							"        pm.expect(comment.postId).to.equal(1);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/comments?postId=1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "1",
+							"description": "Filter comments by post ID"
+						}
+					]
+				},
+				"description": "Demonstrates filtering comments by post using query parameters."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - All Albums",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response structure",
+							"pm.test(\"Response is an array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"// Confirm data exists",
+							"pm.test(\"Albums array is not empty\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/albums",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"albums"
+					]
+				},
+				"description": "Retrieves all albums and validates response contains data."
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Single Photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate successful response",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify photo has album association",
+							"pm.test(\"Photo has albumId\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.albumId).to.exist;",
+							"});",
+							"",
+							"// Verify photo has image URL",
+							"pm.test(\"Photo has url\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.url).to.exist;",
+							"});",
+							"",
+							"// Verify photo has thumbnail",
+							"pm.test(\"Photo has thumbnailUrl\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.thumbnailUrl).to.exist;",
+							"});",
+							"",
+							"// Validate URL uses HTTPS protocol",
+							"pm.test(\"URL is valid format\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.url).to.include(\"https://\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/photos/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"photos",
+						"1"
+					]
+				},
+				"description": "Retrieves photo details and validates URL structure and required fields."
+			},
+			"response": []
+		}
+	]
+}
