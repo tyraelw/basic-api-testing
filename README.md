@@ -4,21 +4,21 @@ A foundational API testing collection demonstrating essential testing patterns a
 
 ## 📋 Project Overview
 
-This project showcases fundamental API testing skills including GET and POST requests, response validation, query parameter usage, and basic assertion patterns. It serves as a foundation for understanding RESTful API testing concepts.
+This project showcases fundamental API testing concepts including GET and POST requests, response validation, query parameter usage, and basic assertion patterns. It demonstrates core RESTful API testing techniques that form the foundation for more complex testing scenarios.
 
-## 🎯 What I Learned
+## 🎯 Skills Demonstrated
 
-This collection demonstrates my ability to:
+This collection demonstrates proficiency in:
 
-- **Test REST API endpoints** using GET and POST methods
-- **Validate HTTP status codes** (200, 201) for different operations
-- **Parse and validate JSON responses** using Postman test scripts
-- **Verify data types** (arrays, objects, strings)
-- **Use query parameters** to filter API responses
-- **Validate object properties** exist and contain expected values
-- **Check data format** (email validation, URL protocol verification)
-- **Iterate through arrays** to validate multiple items
-- **Write clear, maintainable test assertions** in JavaScript
+- **Testing REST API endpoints** using GET and POST methods
+- **Validating HTTP status codes** (200, 201) for different operations
+- **Parsing and validating JSON responses** using Postman test scripts
+- **Verifying data types** (arrays, objects, strings)
+- **Using query parameters** to filter API responses
+- **Validating object properties** exist and contain expected values
+- **Checking data format** (email validation, URL protocol verification)
+- **Iterating through arrays** to validate multiple items
+- **Writing clear, maintainable test assertions** in JavaScript
 
 ## 📊 Test Coverage
 
@@ -46,7 +46,7 @@ This collection demonstrates my ability to:
 - **JavaScript** - Test scripting language
 - **JSON** - Data format
 
-## 🔍 Key Testing Patterns
+## 📝 Key Testing Patterns
 
 ### Status Code Validation
 ```javascript
@@ -157,31 +157,35 @@ All tests validate:
 ## 🔗 Related Projects
 
 - [API Intermediate Testing](../api-intermediate-testing) - Advanced patterns with variable chaining and full CRUD
-- [Cypress Basic Tests](../cypress-basic-tests) - UI automation fundamentals
-- [Cypress Intermediate Tests](../cypress-intermediate-tests) - Data-driven testing patterns
+- [Trello API Testing](../trello-api-testing) - Production-level API testing with authentication
+- [Simple Grocery Store API](../simple-grocery-store-api-testing) - E-commerce flow testing
+
+## 📌 Portfolio Context
+
+This project is part of a structured portfolio demonstrating comprehensive API testing knowledge from fundamental concepts to advanced implementations. While my advanced projects showcase production-ready patterns like [complete CRUD workflows with authentication](../trello-api-testing), this collection focuses on clearly demonstrating core API testing concepts that underpin those complex implementations.
+
+**Focus Area:** Fundamental API testing patterns
+- GET and POST request validation
+- Response structure verification
+- Basic assertion patterns
+- Query parameter usage
+
+**Related Skill Levels:**
+- **Intermediate:** [API Intermediate Testing](../api-intermediate-testing) - Variable chaining, pre-request scripts, full CRUD
+- **Advanced:** [Trello API Testing](../trello-api-testing) - Authentication, Newman CLI, CI/CD integration
 
 ## 📝 Notes
 
 - **API Used**: JSONPlaceholder is a free fake REST API for testing and prototyping
-- **Purpose**: Educational project demonstrating API testing fundamentals
+- **Purpose**: Demonstrates understanding of fundamental API testing concepts
 - **Test Data**: Uses publicly available test data from JSONPlaceholder
-- **No Authentication**: This API doesn't require authentication, focusing on core testing concepts
-
-## 💡 What's Next
-
-After mastering these fundamentals, I progressed to:
-- **Environment variables** for dynamic data
-- **Pre-request scripts** for data generation
-- **Variable chaining** between requests
-- **Full CRUD operations** (POST, PUT, PATCH, DELETE)
-- **Advanced assertions** and validation patterns
-
-See my [API Intermediate Testing](../api-intermediate-testing) project for these advanced concepts.
+- **No Authentication**: This API doesn't require authentication, allowing focus on core testing patterns
 
 ## 📧 Contact
 
-Feel free to reach out if you have questions about this project or want to discuss API testing best practices!
+For questions about this project or API testing best practices, feel free to reach out via [tyrael78w@gmail.com](mailto:tyrael78w@gmail.com)
 
 ---
 
-**Created as part of my QA Testing portfolio** | **Date: November 2025**
+**Part of QA Testing Portfolio** | **November 2025**
+
